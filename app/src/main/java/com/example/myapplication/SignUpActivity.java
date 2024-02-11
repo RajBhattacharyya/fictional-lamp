@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +17,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 public class SignUpActivity extends Activity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private  EditText editTextName;
+    private EditText editTextName;
     private EditText editConfirmPassword;
     private FirebaseAuth mAuth;
     private static final String TAG = "EmailPassword";
@@ -35,7 +37,7 @@ public class SignUpActivity extends Activity {
         editTextName = findViewById(R.id.editTextNameSignUp);
         editTextEmail = findViewById(R.id.editTextEmailSignUp);
         editTextPassword = findViewById(R.id.editTextPasswordSignUp);
-        editConfirmPassword  = findViewById(R.id.editTextConfirmPasswordSignUp);
+        editConfirmPassword = findViewById(R.id.editTextConfirmPasswordSignUp);
         Button signUpButton = findViewById(R.id.buttonSignUp);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -49,26 +51,27 @@ public class SignUpActivity extends Activity {
 
                 // Perform basic validation (you should add more thorough validation)
                 if (email.isEmpty() || password.isEmpty() || name.isEmpty() || conpassword.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(SignUpActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
                     // TODO: Add your authentication logic here
                     // For this example, just display a toast indicating success
-                    Toast.makeText(SignUpActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
-                    createAccount(email,password);
+                    Toast.makeText(SignUpActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                    createAccount(email, password);
                 }
             }
         });
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             reload();
         }
     }
+
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -79,7 +82,13 @@ public class SignUpActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            if (user != null) {
+                                // Call the method to start the Settings activity
+                                settingsActivity(email, password);
+                            } else {
+                                Log.w(TAG, "User is null");
+                                Toast.makeText(SignUpActivity.this, "User is null", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -89,5 +98,14 @@ public class SignUpActivity extends Activity {
                     }
                 });
     }
-    private void reload() { }
+
+    public void settingsActivity(String email, String password) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    private void reload() {
+    }
 }
