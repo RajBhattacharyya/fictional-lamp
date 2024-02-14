@@ -3,25 +3,25 @@ package com.example.myapplication;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.Manifest;
-import android.text.TextUtils;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,29 +42,37 @@ public class ImageCapture extends AppCompatActivity {
 
     TextInputEditText editTextName;
     ImageView selectedImage;
-    Button Capture, Gallery;
+    Button captureButton, galleryButton, submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_capture);
         selectedImage = findViewById(R.id.imageView);
-        Capture = findViewById(R.id.button2);
-        Gallery = findViewById(R.id.button3);
+        captureButton = findViewById(R.id.button2);
+        galleryButton = findViewById(R.id.button3);
         editTextName = findViewById(R.id.editTextName);
+        submitButton = findViewById(R.id.submit_button);
         storagereference = FirebaseStorage.getInstance().getReference();
 
-
-        Capture.setOnClickListener(new View.OnClickListener() {
+        captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 askCameraPermission();
             }
         });
-        Gallery.setOnClickListener(new View.OnClickListener() {
+
+        galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ImageCapture.this,"Gallery Button is Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageCapture.this, "Gallery Button is Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImageToFirebase();
             }
         });
 
@@ -80,10 +88,10 @@ public class ImageCapture extends AppCompatActivity {
                                 selectedImage.setImageBitmap(imageBitmap);
                                 saveToFile(imageBitmap);
                             } else {
-                                Toast.makeText(this, "Failed to get image data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ImageCapture.this, "Failed to get image data", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(this, "Image capture failed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ImageCapture.this, "Image capture failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -116,25 +124,30 @@ public class ImageCapture extends AppCompatActivity {
     }
 
     private void saveToFile(Bitmap bitmap) {
+
+    }
+
+    private void uploadImageToFirebase() {
         String imageName = editTextName.getText().toString().trim();
         if (TextUtils.isEmpty(imageName)) {
             Toast.makeText(this, "Please enter a name for the image", Toast.LENGTH_SHORT).show();
             return;
         }
+        Bitmap imageBitmap = ((BitmapDrawable) selectedImage.getDrawable()).getBitmap();
         File imageFile = new File(getFilesDir(), imageName + ".jpg");
         try {
             FileOutputStream outputStream = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.flush();
             outputStream.close();
             Uri uri = Uri.fromFile(imageFile);
-            uploadtoFirebase(imageFile.getName(),uri);
+            uploadToFirebase(imageFile.getName(), uri);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void uploadtoFirebase(String name, Uri uri) {
+    private void uploadToFirebase(String name, Uri uri) {
         StorageReference image = storagereference.child("users/" + name);
         image.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -142,15 +155,15 @@ public class ImageCapture extends AppCompatActivity {
                 image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.d("tag","Success: Uploaded Image url is" + uri.toString());
+                        Log.d("tag", "Success: Uploaded Image url is" + uri.toString());
                     }
                 });
-                Toast.makeText(ImageCapture.this,"Image is uploaded",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageCapture.this, "Image is uploaded", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ImageCapture.this,"Upload Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageCapture.this, "Upload Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

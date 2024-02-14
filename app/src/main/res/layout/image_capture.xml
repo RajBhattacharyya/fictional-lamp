@@ -54,4 +54,14 @@
         app:layout_constraintStart_toEndOf="@+id/button2"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
