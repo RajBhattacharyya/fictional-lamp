@@ -50,6 +50,10 @@
             android:name=".ImageCapture"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".IntruderImageActivity"
+            android:exported="true">
+        </activity>
 
     </application>
 

@@ -1,12 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -34,6 +37,9 @@ public class MonitorActivity extends AppCompatActivity {
     private DatabaseReference mChildReferenceStatusd;
     private FusedLocationProviderClient fusedLocationClient;
 
+    private TextView statusTextView;
+    private Button showImageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,8 @@ public class MonitorActivity extends AppCompatActivity {
         statusd = findViewById(R.id.door);
         latitudeTextView = findViewById(R.id.latitude);
         longitudeTextView = findViewById(R.id.longitude);
+        statusTextView= findViewById(R.id.status1);
+        showImageButton = findViewById(R.id.showImageButton);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         mRootReference = firebaseDatabase.getReference();
@@ -94,6 +102,17 @@ public class MonitorActivity extends AppCompatActivity {
                 mChildReferenceStatusd.setValue(status);
             }
         });
+
+        showImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start IntruderImageActivity to display the intruder image
+                Intent intent = new Intent(MonitorActivity.this, IntruderImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        checkForIntruders();
     }
 
     private void getLocation() {
@@ -124,12 +143,44 @@ public class MonitorActivity extends AppCompatActivity {
         }, null);
     }
 
+    private void checkForIntruders() {
+        DatabaseReference intruderRef = FirebaseDatabase.getInstance().getReference().child("Intruder");
+        intruderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String intruderStatus = dataSnapshot.getValue(String.class);
+                if (intruderStatus != null && intruderStatus.equals("ok")) {
+                    statusTextView.setText("Status: No intruders detected");
+                    statusTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                    showImageButton.setVisibility(View.GONE);
+                } else if (intruderStatus != null && intruderStatus.equals("detected")) {
+                    statusTextView.setText("Status: Intruders detected");
+                    statusTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                    showImageButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+                Toast.makeText(MonitorActivity.this, "Failed to check for intruders", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void updateLocationUI(Location location) {
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             latitudeTextView.setText("Latitude: " + latitude);
             longitudeTextView.setText("Longitude: " + longitude);
+
+
+            mRootReference.child("lat").setValue(latitude);
+
+
+            mRootReference.child("long").setValue(longitude);
         }
     }
+
 }
