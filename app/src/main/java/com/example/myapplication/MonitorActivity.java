@@ -153,7 +153,7 @@ public class MonitorActivity extends AppCompatActivity {
                     statusTextView.setText("Status: No intruders detected");
                     statusTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                     showImageButton.setVisibility(View.GONE);
-                } else if (intruderStatus != null && intruderStatus.equals("detected")) {
+                } else if (intruderStatus != null && intruderStatus.equals("intruders detected")) {
                     statusTextView.setText("Status: Intruders detected");
                     statusTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                     showImageButton.setVisibility(View.VISIBLE);
