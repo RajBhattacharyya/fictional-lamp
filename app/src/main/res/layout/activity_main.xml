@@ -19,4 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.603" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="269dp"
+        android:layout_height="88dp"
+        android:text="NXTGEN FORTRESS"
+        android:textAlignment="center"
+        android:textColor="#F3F0EF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.492" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
