@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.lang.Math;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -174,12 +175,30 @@ public class MonitorActivity extends AppCompatActivity {
             double longitude = location.getLongitude();
             latitudeTextView.setText("Latitude: " + latitude);
             longitudeTextView.setText("Longitude: " + longitude);
+            latitude = Math.toRadians(latitude);
+            longitude = Math.toRadians(longitude);
+            double lat2 = Math.toRadians(22.4828636);
+            double lon2 = Math.toRadians(88.3172615);
+
+            // Haversine formula
+            double dlat = lat2 - latitude;
+            double dlon = lon2 - longitude;
+            double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(latitude) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double distance = 6371 * c;
 
 
             mRootReference.child("lat").setValue(latitude);
 
 
             mRootReference.child("long").setValue(longitude);
+
+            if(distance>1){
+                mRootReference.child("statusd").setValue(1);
+            }
+            else{
+                mRootReference.child("statusd").setValue(0);
+            }
         }
     }
 
