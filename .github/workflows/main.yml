@@ -1,0 +1,35 @@
+name: Build and Generate APK
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Display directory structure
+      run: ls -R mainapp
+
+    - name: Ensure executable permissions for gradlew
+      run: chmod +x mainapp/gradlew
+
+    - name: Build with Gradle
+      run: ./mainapp/gradlew -p mainapp assembleDebug
+
+    - name: Archive APK artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-debug
+        path: mainapp/app/build/outputs/apk/debug/
