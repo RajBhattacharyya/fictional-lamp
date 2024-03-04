@@ -20,16 +20,16 @@ jobs:
         java-version: '17'
 
     - name: Display directory structure
-      run: ls -R mainapp
+      run: ls -R
 
     - name: Ensure executable permissions for gradlew
-      run: chmod +x mainapp/gradlew
+      run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./mainapp/gradlew -p mainapp assembleDebug
+      run: ./gradlew assembleDebug
 
     - name: Archive APK artifact
       uses: actions/upload-artifact@v2
       with:
         name: app-debug
-        path: mainapp/app/build/outputs/apk/debug/
+        path: app/build/outputs/apk/debug/
