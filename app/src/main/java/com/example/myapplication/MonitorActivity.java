@@ -175,6 +175,8 @@ public class MonitorActivity extends AppCompatActivity {
             double longitude = location.getLongitude();
             latitudeTextView.setText("Latitude: " + latitude);
             longitudeTextView.setText("Longitude: " + longitude);
+            mRootReference.child("lat").setValue(latitude);
+            mRootReference.child("long").setValue(longitude);
             latitude = Math.toRadians(latitude);
             longitude = Math.toRadians(longitude);
             double lat2 = Math.toRadians(22.4828636);
@@ -188,10 +190,7 @@ public class MonitorActivity extends AppCompatActivity {
             double distance = 6371 * c;
 
 
-            mRootReference.child("lat").setValue(latitude);
 
-
-            mRootReference.child("long").setValue(longitude);
 
             if(distance>1){
                 mRootReference.child("statusd").setValue(1);
