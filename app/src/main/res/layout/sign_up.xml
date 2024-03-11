@@ -1,41 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".SignUpActivity">
 
     <EditText
         android:id="@+id/editTextNameSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"/>
+        android:layout_width="339dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="40dp"
+        android:hint="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailSignUp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextEmailSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"/>
+        android:layout_width="338dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:hint="Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.356"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameSignUp" />
 
     <EditText
         android:id="@+id/editTextPasswordSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="341dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
         android:hint="Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.371"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailSignUp" />
+
     <EditText
         android:id="@+id/editTextConfirmPasswordSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="345dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
         android:hint="Confirm Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordSignUp" />
 
     <Button
         android:id="@+id/buttonSignUp"
-        android:layout_width="match_parent"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:text="Sign Up"/>
-</LinearLayout>
+        android:layout_marginTop="72dp"
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Longitudes" />
+
+    <Button
+        android:id="@+id/getloc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="get location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordSignUp" />
+
+    <TextView
+        android:id="@+id/Latitudes"
+        android:layout_width="172dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toEndOf="@+id/getloc"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordSignUp" />
+
+    <TextView
+        android:id="@+id/Longitudes"
+        android:layout_width="172dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toEndOf="@+id/getloc"
+        app:layout_constraintTop_toBottomOf="@+id/Latitudes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
