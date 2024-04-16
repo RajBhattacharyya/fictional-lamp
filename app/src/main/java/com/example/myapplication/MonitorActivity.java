@@ -39,6 +39,7 @@ public class MonitorActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     private TextView statusTextView;
+    private TextView loc;
     private Button showImageButton;
 
     @Override
@@ -51,6 +52,7 @@ public class MonitorActivity extends AppCompatActivity {
         latitudeTextView = findViewById(R.id.latitude);
         longitudeTextView = findViewById(R.id.longitude);
         statusTextView= findViewById(R.id.status1);
+        loc = findViewById(R.id.locTextView);
         showImageButton = findViewById(R.id.showImageButton);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -188,7 +190,7 @@ public class MonitorActivity extends AppCompatActivity {
             double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(latitude) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             double distance = 6371 * c * 1000;
-            statusTextView.setText("Distance from your house: " + String.format("%.2f", distance) + " km");
+            loc.setText("Distance from your house: " + String.format("%.2f", distance) + " m");
 
 
 
