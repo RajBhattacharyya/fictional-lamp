@@ -187,12 +187,12 @@ public class MonitorActivity extends AppCompatActivity {
             double dlon = lon2 - longitude;
             double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(latitude) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            double distance = 6371 * c;
+            double distance = 6371 * c * 1000;
+            statusTextView.setText("Distance from your house: " + String.format("%.2f", distance) + " km");
 
 
 
-
-            if(distance>1){
+            if(distance>50){
                 mRootReference.child("statusd").setValue(1);
             }
             else{
