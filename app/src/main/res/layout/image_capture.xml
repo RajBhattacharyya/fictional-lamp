@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg">
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,19 +19,19 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="349dp"
+        android:layout_height="74dp"
         android:layout_marginTop="52dp"
         android:hint="Enter your name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="351dp"
+            android:layout_height="46dp"
+            android:background="@drawable/rounded_corner_view" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,29 +39,33 @@
         android:id="@+id/button2"
         android:layout_width="118dp"
         android:layout_height="58dp"
+        android:background="@drawable/dashboard_box"
         android:text="Capture Image"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit_button"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="118dp"
         android:layout_height="58dp"
+        android:background="@drawable/dashboard_box"
         android:text="Gallery"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/submit_button"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/dashboard_box"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputName" />
 

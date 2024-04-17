@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg">
 
     <TextView
         android:id="@+id/textView"
@@ -14,7 +15,8 @@
         android:layout_marginEnd="16dp"
         android:text="Intruder Image"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

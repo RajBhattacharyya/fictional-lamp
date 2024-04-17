@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg">
 
     <TextView
         android:id="@+id/status"
@@ -21,15 +22,17 @@
         android:id="@+id/status1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
         android:text=""
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.3"/>
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/showImageButton"
@@ -37,92 +40,104 @@
         android:layout_height="wrap_content"
         android:text="Show Intruder Image"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/status"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status" />
 
     <Switch
         android:id="@+id/door"
         android:layout_width="186dp"
         android:layout_height="49dp"
         android:text=" door lock/unlock"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.144" />
 
     <TextView
         android:id="@+id/longitude"
         android:layout_width="139dp"
         android:layout_height="44dp"
         android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/door"
-        app:layout_constraintVertical_bias="0.487" />
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="159dp"
         android:layout_height="33dp"
         android:text="LONGITUDE"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/longitude"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/door"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="166dp"
         android:layout_height="37dp"
         android:text="LATITUDE"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/latitude"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.106"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitude"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/latitude"
         android:layout_width="136dp"
         android:layout_height="50dp"
         android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitude"
-        app:layout_constraintVertical_bias="0.772" />
+        app:layout_constraintVertical_bias="0.494" />
 
     <TextView
         android:id="@+id/locTextView"
-        android:layout_width="157dp"
-        android:layout_height="41dp"
+        android:layout_width="189dp"
+        android:layout_height="47dp"
         android:text="dist"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/masterLock"
         android:layout_width="135dp"
         android:layout_height="54dp"
         android:text="Master Lock"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/door"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.273" />
 
