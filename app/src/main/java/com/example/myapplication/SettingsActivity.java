@@ -13,8 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsActivity extends AppCompatActivity {
-    TextView name, mail;
-    Button signOutBtn;
+    TextView mail;
     Button nextb;
     Button Image;
     @SuppressLint("MissingInflatedId")
@@ -23,9 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        name = findViewById(R.id.name);
         mail = findViewById(R.id.mail);
-        signOutBtn = findViewById(R.id.signout);
         nextb = findViewById(R.id.nextbtn);
         Image = findViewById(R.id.button5);
         getUserProfile();
@@ -46,9 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void getUserProfile() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String namep = user.getDisplayName();
             String emailp = user.getEmail();
-            name.setText(namep);
             mail.setText(emailp);
         }
     }
