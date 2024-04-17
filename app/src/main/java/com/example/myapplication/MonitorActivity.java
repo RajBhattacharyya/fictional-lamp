@@ -94,7 +94,7 @@ public class MonitorActivity extends AppCompatActivity {
 
 
         // Listen for changes in master
-        mChildReferenceStatusd.addValueEventListener(new ValueEventListener() {
+        mChildReferenceMaster.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Integer status = dataSnapshot.getValue(Integer.class);
