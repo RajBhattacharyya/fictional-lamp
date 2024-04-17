@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="196dp"
-        android:layout_height="73dp"
+        android:layout_width="189dp"
+        android:layout_height="71dp"
         android:layout_marginTop="312dp"
         android:background="@drawable/dashboard_box"
         android:text="Get Started"

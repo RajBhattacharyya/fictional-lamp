@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -36,11 +38,16 @@ public class MonitorActivity extends AppCompatActivity {
     private DatabaseReference mRootReference;
     private DatabaseReference mChildReferenceStatusp;
     private DatabaseReference mChildReferenceStatusd;
+    private DatabaseReference mChildReferenceMaster;
+    private DatabaseReference mChildReferenceMasterd;
     private FusedLocationProviderClient fusedLocationClient;
 
     private TextView statusTextView;
     private TextView loc;
     private Button showImageButton;
+    private Switch master;
+    private ToggleButton masterd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +61,15 @@ public class MonitorActivity extends AppCompatActivity {
         statusTextView= findViewById(R.id.status1);
         loc = findViewById(R.id.locTextView);
         showImageButton = findViewById(R.id.showImageButton);
+        master = findViewById(R.id.masterLock);
+        masterd = findViewById(R.id.toggleLock);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         mRootReference = firebaseDatabase.getReference();
         mChildReferenceStatusp = mRootReference.child("statusp");
         mChildReferenceStatusd = mRootReference.child("statusd");
+        mChildReferenceMaster = mRootReference.child("master");
+        mChildReferenceMasterd = mRootReference.child("masterd");
         statusp.setText("");
 
         // Initialize FusedLocationProviderClient
@@ -80,6 +91,42 @@ public class MonitorActivity extends AppCompatActivity {
                 // Handle error
             }
         });
+
+
+        // Listen for changes in master
+        mChildReferenceStatusd.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer status = dataSnapshot.getValue(Integer.class);
+                if (status != null) {
+                    master.setChecked(status == 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+
+
+        mChildReferenceMasterd.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer status = dataSnapshot.getValue(Integer.class);
+                if (status != null) {
+                    masterd.setChecked(status == 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+
 
         // Listen for changes in statusp
         mChildReferenceStatusp.addValueEventListener(new ValueEventListener() {
@@ -105,6 +152,28 @@ public class MonitorActivity extends AppCompatActivity {
                 mChildReferenceStatusd.setValue(status);
             }
         });
+
+
+        // Set up Switch listener to update master in the database
+        master.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int status = isChecked ? 1 : 0;
+                mChildReferenceMaster.setValue(status);
+            }
+        });
+
+
+        // Set up Switch listener to update masterd in the database
+        masterd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int status = isChecked ? 1 : 0;
+                mChildReferenceMasterd.setValue(status);
+            }
+        });
+
+
 
         showImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
