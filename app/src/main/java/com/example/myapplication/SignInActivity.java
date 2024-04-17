@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,10 +32,10 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
         mAuth = FirebaseAuth.getInstance();
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        Button signInButton = findViewById(R.id.buttonSignIn);
-        Button signup = findViewById(R.id.buttonSignUp);
+        editTextEmail = findViewById(R.id.loginemailinput);
+        editTextPassword = findViewById(R.id.loginpassdinput);
+        Button signInButton = findViewById(R.id.loginbutton);
+        TextView signup = findViewById(R.id.logintosignup);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

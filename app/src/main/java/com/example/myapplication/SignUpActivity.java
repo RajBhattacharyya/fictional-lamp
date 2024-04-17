@@ -53,56 +53,12 @@ public class SignUpActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.sign_up);
 
-        editTextName = findViewById(R.id.editTextNameSignUp);
-        editTextEmail = findViewById(R.id.editTextEmailSignUp);
-        editTextPassword = findViewById(R.id.editTextPasswordSignUp);
-        editConfirmPassword = findViewById(R.id.editTextConfirmPasswordSignUp);
-        Button signUpButton = findViewById(R.id.buttonSignUp);
-        Button getloc = findViewById(R.id.getloc);
-        lats = findViewById(R.id.Latitudes);
-        longs = findViewById(R.id.Longitudes);
+        editTextName = findViewById(R.id.signupnameinput);
+        editTextEmail = findViewById(R.id.signupemailinput);
+        editTextPassword = findViewById(R.id.signuppassdinput);
+        Button signUpButton = findViewById(R.id.signupbutton);
         firebaseDatabase = FirebaseDatabase.getInstance();
         mRootReference = firebaseDatabase.getReference();
-
-        getloc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check for location permission
-                if (ActivityCompat.checkSelfPermission(SignUpActivity.this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(SignUpActivity.this,
-                                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // Request location permission if not granted
-                    ActivityCompat.requestPermissions(SignUpActivity.this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-                    return;
-                }
-
-                // Initialize the FusedLocationProviderClient
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(SignUpActivity.this);
-
-                // Request location updates
-                fusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(SignUpActivity.this, new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                // Got last known location. In some rare situations, this can be null.
-                                if (location != null) {
-                                    // Extract latitude and longitude
-                                    latitude = location.getLatitude();
-                                    longitude = location.getLongitude();
-
-                                    // Display latitude and longitude in TextViews
-                                    lats.setText("Latitude: " + latitude);
-                                    longs.setText("Longitude: " + longitude);
-                                } else {
-                                    // Handle null location
-                                    Toast.makeText(SignUpActivity.this, "Location is null", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
